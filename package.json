@@ -1,30 +1,24 @@
 {
-  "name": "nexttest",
-  "version": "0.1.0",
+  "name": "memoz",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.8",
-    "form-data": "^4.0.0",
+    "antd": "^4.23.5",
     "minio": "^7.0.32",
-    "multiparty": "^4.2.3",
-    "next": "12.3.1",
-    "node-fetch": "^3.2.10",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sass": "^1.55.0",
-    "use-immer": "^0.7.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.55.0"
   },
   "devDependencies": {
-    "eslint": "8.25.0",
-    "eslint-config-next": "12.3.1"
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "vite": "^3.1.0"
   }
 }

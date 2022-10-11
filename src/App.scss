@@ -1,0 +1,13 @@
+body {
+  background-color: aquamarine;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .container {
+    padding: 50px;
+  }
+}
