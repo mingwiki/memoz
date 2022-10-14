@@ -197,9 +197,10 @@ function Home(props) {
                 sx={{ flex: 1 }}
                 value={folderPath[bucket]}
                 onChange={(e) =>
-                  setFolderPath(
-                    (folderPath) => (folderPath[bucket] = e.target.value || ''),
-                  )
+                  setFolderPath((folderPath) => {
+                    folderPath[bucket] = e.target.value || ''
+                    return folderPath
+                  })
                 }
               />
               <Button variant='contained' component='label'>

@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       }
       minioClient.fPutObject(
         bucket,
-        objectName,
+        `${folderPath}/${objectName}`,
         uploadFile.filepath,
         metaData,
         function (err, objInfo) {
@@ -51,13 +51,16 @@ export default async function handler(req, res) {
           minioClient.presignedUrl(
             'GET',
             bucket,
-            objectName,
+            `${folderPath}/${objectName}`,
             24 * 60 * 60,
             function (err, presignedUrl) {
               if (err) return console.log(err)
               res.status(200).json({
                 code: 200,
-                data: { url: presignedUrl.split('?')[0], name: objectName },
+                data: {
+                  url: presignedUrl.split('?')[0],
+                  name: `${folderPath}/${objectName}`,
+                },
               })
             },
           )
