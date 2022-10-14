@@ -59,17 +59,16 @@ function Home(props) {
         JSON.stringify({
           values,
           bucket: currentBuckets[idx],
-          folderPath: folderPath[currentBuckets[idx]],
+          folderPath: folderPath[currentBuckets[idx]] || '',
           objectName: file.name,
         }),
       )
       const res = await fetch('/api/upload', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: data,
       }).then((res) => res.json())
       if (res.code === 200) {
-        setObjects((objects) => objects.push(res.data))
+        setObjects((objects) => [...objects, res.data])
       }
     })
   }
@@ -192,9 +191,8 @@ function Home(props) {
               }}
               noValidate
               autoComplete='off'>
-              Folder Path
               <TextField
-                label={`${bucket.toUpperCase()}`}
+                label={`${bucket.toUpperCase()} Upload Folder Path`}
                 variant='outlined'
                 sx={{ flex: 1 }}
                 value={folderPath[bucket]}
@@ -219,19 +217,29 @@ function Home(props) {
 
           <List dense={objects.length > 10}>
             {objects.map((obj, idx) => {
-              const url = `${values.s3url}/${obj.bucket}/${obj.folderPath}/${obj.name}`
-              const markdownURL = `![](${url})`
-              const jekyllURL = `![]({{ site.s3 }}/${obj.name})`
+              const markdownURL = `![](${obj.url})`
               return (
                 <ListItem key={idx} sx={{ padding: 0 }}>
                   <ListItemIcon>
                     <FolderIcon />
                   </ListItemIcon>
-                  <ListItemText primary={obj.name} secondary={url} />
+                  <ListItemText
+                    primary={obj.name}
+                    secondary={obj.url}
+                    onClick={() => window.open(obj.url)}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        backgroundColor: '#ffff9b',
+                        color: '#fd0808',
+                      },
+                    }}
+                  />
                   <ButtonGroup
                     variant='outlined'
                     aria-label='outlined button group'>
-                    <Button onClick={() => navigator.clipboard.writeText(url)}>
+                    <Button
+                      onClick={() => navigator.clipboard.writeText(obj.url)}>
                       Copy URL
                     </Button>
                     <Button
@@ -239,10 +247,6 @@ function Home(props) {
                         navigator.clipboard.writeText(markdownURL)
                       }>
                       Copy Markdown
-                    </Button>
-                    <Button
-                      onClick={() => navigator.clipboard.writeText(jekyllURL)}>
-                      Copy Jekyll
                     </Button>
                   </ButtonGroup>
                 </ListItem>
