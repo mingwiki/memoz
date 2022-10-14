@@ -24,7 +24,7 @@ import FolderIcon from '@mui/icons-material/Folder'
 import { useImmer } from 'use-immer'
 function Home(props) {
   const [values, setValues] = useImmer({
-    s3url: 'https://s3.naizi.fun:200' || 'https://s3.amazonaws.com',
+    s3url: 'https://s3.amazonaws.com',
     accessKey: '',
     secretKey: '',
   })
